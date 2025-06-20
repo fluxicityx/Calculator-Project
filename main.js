@@ -1,6 +1,7 @@
 let currentNum = "";
 let previousNum = "";
 let operator = "";
+let operatorJustPressed = false;
 
 const currentDisplayNumber = document.querySelector(".currentNumber");
 const previousDisplayNumber = document.querySelector(".previousNumber");
@@ -29,6 +30,7 @@ numberButtons.forEach(btn => {
 })
 
 function handleNumber(number){
+    operatorJustPressed = false;
     currentNum += number;
     currentDisplayNumber.textContent = currentNum
 }
@@ -40,6 +42,26 @@ operators.forEach(btn => {
 })
 
 function handleOperator(op) {
+   if (operatorJustPressed) {
+    operator = op;
+    previousDisplayNumber.textContent = previousNum + " " + operator;
+    return;
+  }
+
+  if (previousNum === "") {
+    previousNum = currentNum;
+    operatorCheck(op);
+  } else if (currentNum === "") {
+    operatorCheck(op);
+  } else {
+    calculate();
+    operator = op;
+    currentDisplayNumber.textContent = "0";
+    previousDisplayNumber.textContent = previousNum + " " + operator;
+  }
+
+  operatorJustPressed = true;
+    
   if (previousNum === "") {
     previousNum = currentNum;
     operatorCheck(op);
@@ -73,8 +95,13 @@ function calculate(){
         previousNum = previousNum / currentNum;
     }
     currentNum = ""
+    previousNum = roundNumber(previousNum)
     previousNum = previousNum.toString();
     displayResults();
+}
+
+function roundNumber(num) {
+  return Math.round(num * 100000) / 100000;
 }
 
 function displayResults(){

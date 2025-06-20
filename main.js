@@ -47,7 +47,24 @@ function calculate(){
     currentNum  = Number(currentNum)
     if(operator ==="+"){
         previousNum = previousNum + currentNum;
+    }else if (operator === "-"){
+        previousNum = previousNum - currentNum
+    }else if(operator === "x"){
+        previousNum = previousNum * currentNum;
+    }else if (operator === "/"){
+        previousNum = previousNum / currentNum;
     }
-    previousDisplayNumber.textContent = ""
-    currentDisplayNumber.textContent = previousNum;
+
+    previousNum = previousNum.toString();
+    displayResults();
+}
+
+function displayResults(){
+    previousDisplayNumber.textContent = "";
+    operator = ""
+    if (previousNum.length <= 11){
+        currentDisplayNumber.textContent = previousNum
+    } else {
+        currentDisplayNumber.textContent = previousNum.slice(0, 11) + "..."
+    }
 }

@@ -24,3 +24,17 @@ function handleNumber(number){
     currentNum += number;
     currentDisplayNumber.textContent = currentNum
 }
+
+operators.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        handleOperator(e.target.textContent)
+    })
+})
+
+function handleOperator(op){
+    operator = op;
+    previousNum = currentNum
+    previousDisplayNumber.textContent = previousNum
+    currentNum = ""
+    currentDisplayNumber.textContent ="";
+}

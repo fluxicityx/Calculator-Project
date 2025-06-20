@@ -6,7 +6,7 @@ const currentDisplayNumber = document.querySelector(".currentNumber");
 const previousDisplayNumber = document.querySelector(".previousNumber");
 
 const clear = document.querySelector(".clear")
-clear.addEventListener('click', clearCalculator())
+clear.addEventListener('click', clearCalculator)
 
 const equal = document.querySelector(".equal");
 equal.addEventListener("click", () => {
@@ -15,7 +15,7 @@ equal.addEventListener("click", () => {
     }
 })
 
-const decimal = document.querySelector(".clear");
+const decimal = document.querySelector(".decimal");
 
 const numberButtons = document.querySelectorAll(".number")
 
@@ -39,12 +39,25 @@ operators.forEach(btn => {
     })
 })
 
-function handleOperator(op){
+function handleOperator(op) {
+  if (previousNum === "") {
+    previousNum = currentNum;
+    operatorCheck(op);
+  } else if (currentNum === "") {
+    operatorCheck(op);
+  } else {
+    calculate();
     operator = op;
-    previousNum = currentNum
+    currentDisplayNumber.textContent = "0";
     previousDisplayNumber.textContent = previousNum + " " + operator;
-    currentNum = ""
-    currentDisplayNumber.textContent ="";
+  }
+}
+
+function operatorCheck(text) {
+  operator = text;
+  previousDisplayNumber.textContent = previousNum + " " + operator;
+  currentDisplayNumber.textContent = "0";
+  currentNum = "";
 }
 
 function calculate(){
@@ -59,7 +72,7 @@ function calculate(){
     }else if (operator === "/"){
         previousNum = previousNum / currentNum;
     }
-
+    currentNum = ""
     previousNum = previousNum.toString();
     displayResults();
 }
@@ -82,3 +95,4 @@ function clearCalculator(){
     currentDisplayNumber.textContent = "0";
     previousDisplayNumber.textContent = "";
 }
+

@@ -1,9 +1,9 @@
-let currentNumb = "";
-let previousNumb = "";
+let currentNum = "";
+let previousNum = "";
 let operator = "";
 
-const currentDisplayNumber = document.querySelector("currentNumber");
-const previousDisplayNumber = document.querySelector("previousNumber");
+const currentDisplayNumber = document.querySelector(".currentNumber");
+const previousDisplayNumber = document.querySelector(".previousNumber");
 
 const equal = document.querySelector(".equal");
 
@@ -21,5 +21,6 @@ numberButtons.forEach(btn => {
 })
 
 function handleNumber(number){
-    console.log(number);
+    currentNum += number;
+    currentDisplayNumber.textContent = currentNum
 }
